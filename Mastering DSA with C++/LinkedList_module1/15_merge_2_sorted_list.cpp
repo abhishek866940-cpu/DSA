@@ -1,0 +1,112 @@
+//method 1 - SC - O(m+n) 
+//TC - O(m+n)
+
+#include<iostream>
+using namespace std ;
+
+class node{
+    public:
+    int val ;
+    node * next ;
+    node(int val){
+        this->val = val ;
+        next = NULL ;
+    }
+};
+
+class Linkedlist{
+    public :
+    node* head ;
+    Linkedlist(){
+        head = NULL ;
+    }
+
+    void InsertAtEnd(int value){
+        node* t = new node(value) ;
+        if(head==NULL){
+            head = t ;
+            return ;
+        }
+        node* temp = head ;
+        while(temp->next!=NULL){
+            temp = temp->next ;
+        }
+        temp->next = t ;
+    }
+
+    void display(){
+        node* temp = head ;
+        while(temp!=NULL){
+            cout<<temp->val<<" ";
+            temp = temp->next; 
+        }
+        cout<<endl;
+    }
+
+    node* MergeTwoList(node* headA , node* headB){
+
+        if(headA==NULL) return headB;
+        if(headB==NULL) return headA;
+
+        node * c = new node(-1);
+        head = c ;
+        node* tempA = headA ;
+        node* tempB = headB ;
+        while(tempA!=NULL && tempB!=NULL){
+            if(tempA->val<=tempB->val){
+                node * t = new node(tempA->val);
+                c->next = t ;
+                tempA = tempA->next ;
+            }
+            else{
+                node * t = new node(tempB->val);
+                c->next = t ;
+                tempB = tempB->next ;
+            }
+            c = c->next ;
+        }
+        if(tempA==NULL){
+            c->next = tempB ;
+        }
+        else{
+            c->next = tempA ;
+        }
+        head = head->next ;
+        return head;
+
+    }
+
+
+};
+
+int main(){
+    Linkedlist ll1 ;
+    Linkedlist ll2 ;
+
+    ll1.InsertAtEnd(1);
+    ll1.InsertAtEnd(2);
+    ll1.InsertAtEnd(5);
+
+    cout<<"List 1 : ";
+    ll1.display();
+
+    ll2.InsertAtEnd(2);
+    ll2.InsertAtEnd(3);
+    ll2.InsertAtEnd(4);
+    ll2.InsertAtEnd(6);
+    ll2.InsertAtEnd(7);
+    ll2.InsertAtEnd(8);
+
+    cout<<"List 2 : ";
+    ll2.display();
+
+    Linkedlist ll3 ;
+
+    ll3.MergeTwoList(ll1.head,ll2.head);
+
+    cout<<"List after merging : ";
+    ll3.display();
+
+
+    return 0 ;
+}

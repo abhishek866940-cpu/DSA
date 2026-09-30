@@ -1,0 +1,16 @@
+//only single and double step allowed.
+#include<stdio.h>
+int stair(int n ){
+    if(n==1) return 1 ;    
+    if(n==2) return 2 ;
+    int totalways = stair(n-1) + stair(n-2);
+    return totalways ;
+}
+int main(){
+    int n ;
+    printf("Number of stairs : ");
+    scanf("%d",&n);
+    stair(n);
+    printf("Total ways %d\n",stair(n));
+    return 0 ;
+}
